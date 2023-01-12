@@ -1,45 +1,4 @@
-# iTunes App Store Scraper
-This defines a lightweight Python class that can be used to scrape app 
-information from the iTunes App Store. It defines a couple of methods that can
-be used to get relevant app IDs given a set of parameters, and a couple of 
-methods to then scrape data about these app IDs.
+# Home assignment for Peer39
+This repo is forked from the DMI's [iTunes Store Scaper](https://github.com/digitalmethodsinitiative/itunes-app-scraper), a simple Python scraper.
 
-Much of this has been adapted from 
-[app-store-scraper](https://github.com/facundoolano/app-store-scraper), a 
-nodeJS-based scraper that does similar things. But this scraper uses Python.
-
-## Getting started
-The following scrapes app details about all apps similar to the first result 
-for the 'fortnite' search query:
-
-```
-from itunes_app_scraper.scraper import AppStoreScraper
-
-scraper = AppStoreScraper()
-results = scraper.get_app_ids_for_query("fortnite")
-similar = scraper.get_similar_app_ids_for_app(results[0])
-
-app_details = scraper.get_multiple_app_details(similar)
-print(list(app_details))
-```
-
-Documentation is not available separately yet, but the code is relatively
-simple and you can look in the `scraper.py` file to see what methods are 
-available and what their parameters are.
-
-## Sources of Data:
-| Query	        | Source                                                                                                                       | 	URL base                                                          |
-|---------------|------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
-| App           | 	[Affiliates API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html) | https://itunes.apple.com/lookup?                                   |
-| Search	       | Old Affiliates?	                                                                                                             | https://search.itunes.apple.com/WebObjects/MZStore.woa/wa/search?  |
-| Developer	    | [Affiliates API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html)  | https://itunes.apple.com/lookup?                                   |
-| List	         | [Old Affiliates](https://images.apple.com/itunesaffiliates/guides/AffiliatesSearch_2.7(JSON).pdf)                            | 	http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/ |
-| Similar       | iTunes store scrape HTML                                                                                                     | 	https://itunes.apple.com/us/app/app/                              |
-| Full Details	 | [Affiliates API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html)  | https://itunes.apple.com/lookup?                                   |
- | Ratings       | iTunes store scrape HTML                                                                                                     | https://itunes.apple.com/lookup?                                   |                                  |
-
-
-## License
-This scraper was developed by the 
-[Digital Methods Initiative](https://digitalmethods.net), and is distributed
-under the MIT license. See LICENSE for details.
+Although this repo includes a search for the top 100 apps (in this case, searching for the first 100 apps in the `TOP_FREE_IOS` collection), the results that this returns don't appear to be sorted correctly (namely, we want a descending search in order of ratings, this returns a lot of apps that provide homescreen widgets, it might be newest? Possibly because it uses the Old Affiliates API) Therefore I used a third-party analytics service (`appfigures.com`) to get the top 100, then used the DMI's scraper to get the app details (via scraping the iTunes Store), and used Pandas and some basic heuristics to complete the assignment.
