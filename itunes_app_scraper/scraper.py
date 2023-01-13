@@ -1,20 +1,13 @@
-"""
-iTunes App Store Scraper
-"""
-import requests
 import json
-import time
-import re
 import os
+import re
+import time
 from datetime import datetime
-
 from urllib.parse import quote_plus
-from itunes_app_scraper.util import (
-    AppStoreException,
-    AppStoreCollections,
-    AppStoreMarkets,
-    COUNTRIES,
-)
+
+import requests
+
+from util import COUNTRIES, AppStoreCollections, AppStoreException, AppStoreMarkets
 
 
 class Regex:

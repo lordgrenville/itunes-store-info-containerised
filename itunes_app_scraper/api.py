@@ -17,7 +17,7 @@ def top_hundred():
 
 @app.get("/details/{app_id}")
 def app_details(app_id: str):
-    return t100.get_app_details(app_id)
+    return t100.get_app_details(app_id, full_detail=True)
 
 
 @app.get("/categorised_apps")

@@ -1,7 +1,7 @@
 from typing import List
 import pandas as pd
-from itunes_app_scraper.scraper import AppStoreScraper
-from itunes_app_scraper.util import AppStoreException
+from scraper import AppStoreScraper
+from util import AppStoreException
 
 
 class TopHundredAppsRetriever:
@@ -14,10 +14,24 @@ class TopHundredAppsRetriever:
         print("Top 100 apps fetched")
         return [x['id']['attributes']['im:id'] for x in results['feed']['entry']]
 
-    def get_app_details(self, app_id: str, sleep: int = 0):
-        """Safely try to return details about an app"""
+    def get_app_details(self, app_id: str, sleep: int = 0, full_detail=False):
+        """
+        Safely try to return details about an app. We have the option of returning raw data or categorising.
+        When running on all 100 apps, it's more convenient to do it on the entire data set at once (as it's a
+        vectorised operation). But the API allows us to query just one app along with categorisation.
+        """
         try:
-            return self.scraper.get_app_details(app_id, sleep=sleep)
+            details = self.scraper.get_app_details(app_id, sleep=sleep)
+            if full_detail:
+                details['Kid Friendly'] = details['contentAdvisoryRating'] != '17+'
+                if details['primaryGenreName'] in ["Games", "Music"]:
+                    details['Category'] = details['primaryGenreName']
+                elif "Entertainment" in details['genres']:
+                    details['Category'] = "TV"
+                else:
+                    details['Category'] = f"Other({details['primaryGenre']})"
+            return details
+
         except AppStoreException:
             print(f"App {app_id} not found")
             return None
