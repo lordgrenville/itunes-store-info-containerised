@@ -1,8 +1,8 @@
-from itunes_app_scraper.scraper import AppStoreScraper
-from itunes_app_scraper.util import AppStoreException
+import os
 
 import pytest
-import os
+from itunes_app_scraper.scraper import AppStoreScraper
+from itunes_app_scraper.util import AppStoreException
 
 
 def test_term_no_exception():
@@ -31,19 +31,17 @@ def test_no_invalid_id_in_multiple_is_empty():
 def test_no_invalid_id_in_multiple_writes_log():
     scraper = AppStoreScraper()
     scraper.get_multiple_app_details(["872"])
-    assert os.path.exists("log/nl_log.txt")
-    fh = open("log/nl_log.txt")
-    assert "No app found with ID 872" in fh.read()
-    fh.close()
+    assert os.path.exists("log/us_log.txt")
+    with open("log/us_log.txt") as fh:
+        assert "No app found with ID 872" in fh.read()
 
 
 def test_log_file_write_message():
     scraper = AppStoreScraper()
     scraper._log_error("gb", "test")
     assert os.path.exists("log/gb_log.txt")
-    fh = open("log/gb_log.txt")
-    assert "test" in fh.read()
-    fh.close()
+    with open("log/gb_log.txt") as fh:
+        assert "test" in fh.read()
 
 
 def test_country_code_does_exist():

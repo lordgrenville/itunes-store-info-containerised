@@ -1,11 +1,8 @@
-from itunes_app_scraper.util import (
-    AppStoreCollections,
-    AppStoreCategories,
-    AppStoreUtils,
-)
-
 import json
+
 import pytest
+from itunes_app_scraper.util import (AppStoreCategories, AppStoreCollections,
+                                     AppStoreUtils)
 
 
 def test_category_exists():
@@ -15,9 +12,7 @@ def test_category_exists():
 
 def test_category_does_not_exist():
     category = AppStoreCategories()
-    with pytest.raises(
-        AttributeError, match="'AppStoreCategories' object has no attribute 'METHOD'"
-    ):
+    with pytest.raises(AttributeError, match="'AppStoreCategories' object has no attribute 'METHOD'"):
         category.METHOD
 
 
@@ -28,9 +23,7 @@ def test_collection_exists():
 
 def test_collection_does_not_exist():
     collection = AppStoreCollections()
-    with pytest.raises(
-        AttributeError, match="'AppStoreCollections' object has no attribute 'NOTHING'"
-    ):
+    with pytest.raises(AttributeError, match="'AppStoreCollections' object has no attribute 'NOTHING'"):
         collection.NOTHING
 
 
