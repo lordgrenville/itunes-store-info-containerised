@@ -24,6 +24,6 @@ def app_details(app_id: str):
 @app.get("/categorised_apps")
 def get_categorised_apps(cache: bool = True):
     if cache:
-        return pd.read_csv('cached_data.csv').to_json()
+        return pd.read_csv('data/cached_data.csv').to_json()
     # TODO this should be asynchronous - return an immediate response, then calculate and cache without blocking
     return t100.categorise_apps()

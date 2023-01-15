@@ -16,7 +16,7 @@ The next phase is to wrap this in a simple REST API, which I built using FastAPI
 Lastly, I created a Dockerfile describing a containerised version of this app, which could be run reproducibly on a server or as part of a Kubernetes cluster.
 
 ### Testing
-Owing to the project structure and the nature of Python's import system, tests should be run from the project root directory with the command `python -m pytest`, rather than just `pytest`. Similarly, the server is started from root with the command `uvicorn itunes_app_scraper.api:app --host 0.0.0.0` (allowing us to port forward the app from the container to another server, eg I ran the container locally with the command `docker run --expose 8000 -p 8000:8000 peer39` [substituting whatever tag the Docker image has been built with]).
+Owing to the project structure and the nature of Python's import system, tests should be run from the project root directory with the command `python -m pytest`, rather than just `pytest`. Similarly, the server is started from root with the command `uvicorn src.api:app --host 0.0.0.0` (allowing us to port forward the app from the container to another server, eg I ran the container locally with the command `docker run --expose 8000 -p 8000:8000 peer39` [substituting whatever tag the Docker image has been built with]).
 
 ## Thoughts for scaling
 If we wanted to increase load on this, it would be worth expanding the use of memoisation. For example, rather than call the iTunes API every time a request is received, responses could be stored along with a timestamp, and a new response fetched only after a certain interval. In the meantime, all requests could receive the cached response.
