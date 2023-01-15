@@ -18,7 +18,7 @@ class TopHundredAppsRetriever:
         """
         Safely try to return details about an app. We have the option of returning raw data or categorising.
         When running on all 100 apps, it's more convenient to do it on the entire data set at once (as it's a
-        vectorised operation). But the API allows us to query just one app along with categorisation.
+        vectorised operation). But this also lets us to query just one app along with categorisation.
         """
         try:
             details = self.scraper.get_app_details(app_id, sleep=sleep)
@@ -51,11 +51,16 @@ class TopHundredAppsRetriever:
             if app_details is not None:
                 detailed_app_list.append(app_details)
         print("App details fetched")
-
         df = pd.DataFrame(detailed_app_list)
-        df["Kids friendly"] = df.trackContentRating != "17+"
+        return self._categorise_dataframe(df)
 
-        df["Category"] = "Other"
+    def _categorise_dataframe(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Given a dataframe of the raw full data returned by the iTunes Store API, categorise as requested by
+        the home assignment and return the augmented dataframe
+        """
+        df["Category"] = "Other"  # starting category for everything
+        df["Kids friendly"] = df.trackContentRating != "17+"
 
         # Note: there are no games in the top 100 apps that we fetched at the time of testing. Games are categorised
         # under the "Games" category, so we could use this paramter in the search. But we fetched the top 100 overall.
