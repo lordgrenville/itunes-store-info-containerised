@@ -1,6 +1,6 @@
 import pandas as pd
 from fastapi import FastAPI
-from top_100_apps_details import TopHundredAppsRetriever
+from itunes_app_scraper.top_100_apps_details import TopHundredAppsRetriever
 
 app = FastAPI()
 t100 = TopHundredAppsRetriever()

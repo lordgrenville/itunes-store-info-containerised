@@ -6,4 +6,4 @@ COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 COPY . .
 
-CMD [ "uvicorn", "api:app"]
+CMD [ "uvicorn", "itunes_app_scraper.api:app", "--host", "0.0.0.0"]
