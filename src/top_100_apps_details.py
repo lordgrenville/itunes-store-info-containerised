@@ -1,7 +1,7 @@
 from typing import List
 import pandas as pd
-from itunes_app_scraper.scraper import AppStoreScraper
-from itunes_app_scraper.util import AppStoreException
+from src.scraper import AppStoreScraper
+from src.util import AppStoreException
 
 
 class TopHundredAppsRetriever:

@@ -7,7 +7,7 @@ from urllib.parse import quote_plus
 
 import requests
 
-from itunes_app_scraper.util import COUNTRIES, AppStoreCollections, AppStoreException, AppStoreMarkets
+from src.util import COUNTRIES, AppStoreCollections, AppStoreException, AppStoreMarkets
 
 
 class Regex:

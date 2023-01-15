@@ -1,8 +1,8 @@
 import os
 
 import pytest
-from itunes_app_scraper.scraper import AppStoreScraper
-from itunes_app_scraper.util import AppStoreException
+from src.scraper import AppStoreScraper
+from src.util import AppStoreException
 
 
 def test_term_no_exception():

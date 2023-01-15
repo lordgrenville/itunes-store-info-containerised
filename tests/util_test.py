@@ -1,7 +1,7 @@
 import json
 
 import pytest
-from itunes_app_scraper.util import (AppStoreCategories, AppStoreCollections,
+from src.util import (AppStoreCategories, AppStoreCollections,
                                      AppStoreUtils)
 
 
